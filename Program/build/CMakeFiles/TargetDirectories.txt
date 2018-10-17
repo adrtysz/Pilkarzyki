@@ -1,0 +1,3 @@
+C:/Users/Adżi/Documents/STUDIA/SEMESTR 5/PROJEKT KOMPETENCYJNY/Projekt/Program/build/CMakeFiles/Projekt.dir
+C:/Users/Adżi/Documents/STUDIA/SEMESTR 5/PROJEKT KOMPETENCYJNY/Projekt/Program/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Adżi/Documents/STUDIA/SEMESTR 5/PROJEKT KOMPETENCYJNY/Projekt/Program/build/CMakeFiles/ZERO_CHECK.dir

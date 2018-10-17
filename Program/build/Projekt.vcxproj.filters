@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\FindContours.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\FindContours.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{22DA7B17-BB8C-3B6E-A49A-534D9DAE69E3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E6442097-73DF-3ACC-B7B1-9AD756201921}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
