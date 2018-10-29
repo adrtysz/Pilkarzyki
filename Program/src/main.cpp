@@ -19,15 +19,23 @@ int main(int argc, char** argv)
 	src1 = imread(argv[1], 1);
 
 	load(src1);
-
-
-
-
-
-
-
-
-
+	//dzia³aj¹ca kamerka, póki co w mainie, do przeniesienia do przetwarzania obrazów +- tydzieñ 
+	VideoCapture cap(0);
+	if (!cap.isOpened())
+	{
+		cout << "change the camera port number! ";
+		return -1;
+	}
+	while (true)
+	{
+		Mat frame;
+		cap.read(frame);
+		imshow("camera", frame);
+		if (waitKey(30) == 27)
+		{
+			return 0;
+		}
+	}
 
 
 
