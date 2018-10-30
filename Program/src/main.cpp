@@ -21,6 +21,7 @@ int main(int argc, char** argv)
 	load(src1);
 	//dzia³aj¹ca kamerka, póki co w mainie, do przeniesienia do przetwarzania obrazów +- tydzieñ 
 	VideoCapture cap(0);
+	//xD
 	if (!cap.isOpened())
 	{
 		cout << "change the camera port number! ";
