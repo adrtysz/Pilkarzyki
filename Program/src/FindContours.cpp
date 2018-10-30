@@ -38,7 +38,7 @@ int load(Mat src)
 	createTrackbar(" Canny thresh:", "Source", &thresh, max_thresh, thresh_callback);
 	thresh_callback(0, 0);
 
-	waitKey(0);
+	//waitKey(0);
 	return(0);
 }
 

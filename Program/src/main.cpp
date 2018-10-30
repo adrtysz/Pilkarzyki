@@ -16,7 +16,7 @@ Mat src1;
 int main(int argc, char** argv)
 {
 	/// Load source image and convert it to gray
-	src1 = imread(argv[1], 1);
+	src1 = imread("1.JPG", 1);
 
 	load(src1);
 	//dzia³aj¹ca kamerka, póki co w mainie, do przeniesienia do przetwarzania obrazów +- tydzieñ 
@@ -29,6 +29,7 @@ int main(int argc, char** argv)
 	}
 	while (true)
 	{
+		//cout << "cos";
 		Mat frame;
 		cap.read(frame);
 		imshow("camera", frame);
@@ -36,11 +37,9 @@ int main(int argc, char** argv)
 		{
 			return 0;
 		}
+
+		
 	}
-
-
-
-
 
 
 
