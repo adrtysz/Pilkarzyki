@@ -3,29 +3,14 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include "FindContours.h"
-#include "Contours.h"
-#include "CameraStart.h"
-
 
 using namespace cv;
 using namespace std;
 
-Mat src1; 
 
+int camera(){
 
-/** @function main */
-int main(int argc, char** argv)
-{
-	/// Load source image and convert it to gray
-	src1 = imread(argv[1], 1);
-
-	load(src1);
-	loadAndCrop(src1);
-	camera();
-	//dzia³aj¹ca kamerka, póki co w mainie, do przeniesienia do przetwarzania obrazów +- tydzieñ 
-	
-	/*VideoCapture cap(0);
+VideoCapture cap(0);
 	//xD
 	if (!cap.isOpened())
 	{
@@ -43,10 +28,6 @@ int main(int argc, char** argv)
 			return 0;
 		}
 
-		
-	}*/
-
-
+	}
 }
-
 

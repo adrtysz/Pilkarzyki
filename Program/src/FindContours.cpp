@@ -30,10 +30,7 @@ int load(Mat src)
 
 	blur(src_gray, src_gray, Size(3, 3));
 
-	/// Create Window
-	char* source_window = "Source";
-	namedWindow(source_window, CV_WINDOW_AUTOSIZE);
-	imshow(source_window, src);
+	
 
 	createTrackbar(" Canny thresh:", "Source", &thresh, max_thresh, thresh_callback);
 	thresh_callback(0, 0);

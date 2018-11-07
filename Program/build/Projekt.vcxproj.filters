@@ -7,9 +7,21 @@
     <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\FindContours.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\Contours.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\CameraStart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\FindContours.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\Contours.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\CameraStart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

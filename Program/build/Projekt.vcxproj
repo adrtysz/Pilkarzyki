@@ -312,6 +312,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\main.cpp" />
     <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\FindContours.h" />
     <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\FindContours.cpp" />
+    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\Contours.cpp" />
+    <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\Contours.h" />
+    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\CameraStart.cpp" />
+    <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\CameraStart.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\build\ZERO_CHECK.vcxproj">

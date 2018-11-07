@@ -12,6 +12,10 @@ add_executable(Projekt
 	main.cpp
 	FindContours.h
 	FindContours.cpp
+	Contours.cpp
+	Contours.h
+	CameraStart.cpp
+	CameraStart.h
 )
 
 target_link_libraries(Projekt
