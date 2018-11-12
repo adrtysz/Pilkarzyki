@@ -7,4 +7,4 @@
 using namespace cv;
 
 
-int camera();
+cv::Mat camera();

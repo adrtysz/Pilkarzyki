@@ -12,41 +12,31 @@ using namespace cv;
 using namespace std;
 
 Mat src1; 
-
+Mat camerainput;
 
 /** @function main */
 int main(int argc, char** argv)
 {
 	/// Load source image and convert it to gray
-	src1 = imread(argv[1], 1);
-
-	load(src1);
-	loadAndCrop(src1);
-	camera();
-	//dzia³aj¹ca kamerka, póki co w mainie, do przeniesienia do przetwarzania obrazów +- tydzieñ 
-	
-	/*VideoCapture cap(0);
-	//xD
-	if (!cap.isOpened())
-	{
-		cout << "change the camera port number! ";
-		return -1;
-	}
+	//src1 = imread(argv[1], 1);
+	char key; 
+	//load(src1);
+	//loadAndCrop(src1);
+	//camera();
 	while (true)
 	{
-		//cout << "cos";
-		Mat frame;
-		cap.read(frame);
-		imshow("camera", frame);
-		if (waitKey(30) == 27)
-		{
-			return 0;
+		std::cin >> key;
+		while(key == 32 || key == ' ');
+		{	
+			//cout << "test";
+			camerainput = camera();
+			load(camerainput);
+			loadAndCrop(camerainput);
+			
 		}
-
+		key = 'a';
 		
-	}*/
-
-
+	}
 }
 
 

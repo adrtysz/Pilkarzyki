@@ -8,15 +8,15 @@ using namespace cv;
 using namespace std;
 
 
-int camera(){
+cv::Mat camera(){
 
 VideoCapture cap(0);
 	//xD
-	if (!cap.isOpened())
+	/*if (!cap.isOpened())
 	{
 		cout << "change the camera port number! ";
-		return -1;
-	}
+		return frame;
+	}*/
 	while (true)
 	{
 		//cout << "cos";
@@ -25,9 +25,9 @@ VideoCapture cap(0);
 		imshow("camera", frame);
 		if (waitKey(30) == 27)
 		{
-			return 0;
+			return frame;
 		}
-
+		return frame;
 	}
 }
 
