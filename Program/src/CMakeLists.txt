@@ -10,12 +10,12 @@ include_directories(
 
 add_executable(Projekt
 	main.cpp
-	FindContours.h
-	FindContours.cpp
 	Contours.cpp
 	Contours.h
 	CameraStart.cpp
 	CameraStart.h
+	Perspective.cpp
+	Perspective.h
 )
 
 target_link_libraries(Projekt

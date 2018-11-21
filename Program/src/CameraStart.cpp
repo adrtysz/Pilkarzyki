@@ -10,24 +10,19 @@ using namespace std;
 
 cv::Mat camera(){
 
-VideoCapture cap(0);
-	//xD
-	/*if (!cap.isOpened())
+	Mat frame;
+	Mat picture;
+	char key;
+	VideoCapture cap(0);
+	for (int i = 0; (i <= 2 && cap.isOpened()); i++)
 	{
-		cout << "change the camera port number! ";
-		return frame;
-	}*/
-	while (true)
-	{
-		//cout << "cos";
-		Mat frame;
-		cap.read(frame);
-		imshow("camera", frame);
-		if (waitKey(30) == 27)
-		{
-			return frame;
-		}
-		return frame;
+		cap >> frame;
+		frame.copyTo(picture);
+		imwrite("photo.jpg", picture);
+		return picture;
+		if (char(waitKey(30)) == 'q')
+			break;
 	}
+	return picture;
 }
 

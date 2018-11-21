@@ -8,7 +8,7 @@ using namespace cv;
 using namespace std;
 
 
-int loadAndCrop(Mat img0) {
+cv::Mat loadAndCrop(Mat img0) {
 
     Mat img1;
     cvtColor(img0, img1, CV_RGB2GRAY);
@@ -30,8 +30,9 @@ int loadAndCrop(Mat img0) {
    
     normalize(mask.clone(), mask, 0.0, 255.0, CV_MINMAX, CV_8UC1);
 
-    imshow("cropped", crop);
+    //imshow("cropped", crop);
 
     imwrite("cropped.jpg", crop);
-    return 0;
+    
+	return crop;
 }
