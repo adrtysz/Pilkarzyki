@@ -96,13 +96,15 @@ void mergeRelatedLines(vector<Vec2f> *lines, Mat &img){
 
 
 
-int perspective(Mat plansza) {
+Mat perspective(Mat plansza) {
 
+	Mat color;
 
+	cv::Size s = Size(80, 120);
 
-	//plansza = imread("2.jpg", 0); //load image in grayscale mode
+	//plansza = imread("6.jpg", 0); //load image in grayscale mode
 
-	Mat outerBox = Mat(plansza.size(), CV_8UC1); //create a blank image of the same size
+	Mat outerBox = Mat(s, CV_8UC1); //create a blank image of the same size
 
 	GaussianBlur(plansza, plansza, Size(11, 11), 0); //Blur the image a little. This smooths out the noise a bit and makes extracting the grid lines easier
 
@@ -310,22 +312,47 @@ int perspective(Mat plansza) {
 	src[2] = ptBottomRight;        dst[2] = Point2f(maxLength - 1, maxLength - 1);
 	src[3] = ptBottomLeft;        dst[3] = Point2f(0, maxLength - 1);
 
-	Mat undistorted = Mat(Size(maxLength, maxLength), CV_8UC1);
+	Mat undistorted = Mat(s, CV_8UC1);
 	cv::warpPerspective(plansza, undistorted, cv::getPerspectiveTransform(src, dst), Size(maxLength, maxLength));
 
 
 
 
+	int i = 0;
+	int j = 0;
+	Point punktyx[9][13];
+	//Point punktyy[9][13];
+	resize(undistorted, undistorted, Size(320, 480));
+	for (i = 0; i < 9;i++)
+	{
+		for (j = 0; j < 13;j++)
+		{
+			Point pt1 = Point(i*39, j*39);
+			punktyx[i][j] = pt1;
+			//punktyy[i][j] = pt1.y;
+			//cout << pt1.x << "\t"<< pt1.y << endl;
+			//circle(undistorted, pt1, 1, Scalar(0, 255, 255), 10, 8, 0);
+		}
+	}
 
 	imshow("out", undistorted);
+	for (i = 0; i < 9; i++)
+	{
+		for (j = 0; j < 13; j++)
+		{
+			cout << punktyx[i][j].x <<"\t"<< punktyx[i][j].y  << endl;
+			
+		}
+	}
+
+
+	imwrite("dupa.jpg", undistorted);
+
+
+	//waitKey(0);
 
 
 
-
-	waitKey(0);
-
-
-
-	return 0;
+	return undistorted;
 
 }

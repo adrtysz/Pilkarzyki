@@ -11,4 +11,4 @@ using namespace std;
 
 void drawLine(Vec2f, Mat, Scalar);
 void mergeRelatedLines(vector<Vec2f>, Mat);
-int perspective(Mat);
+Mat perspective(Mat);
