@@ -322,12 +322,12 @@ Mat perspective(Mat plansza) {
 	int j = 0;
 	Point punktyx[9][13];
 	//Point punktyy[9][13];
-	resize(undistorted, undistorted, Size(320, 480));
+	resize(undistorted, undistorted, Size(321, 481));
 	for (i = 0; i < 9;i++)
 	{
 		for (j = 0; j < 13;j++)
 		{
-			Point pt1 = Point(i*39, j*39);
+			Point pt1 = Point(i*40, j*40);
 			punktyx[i][j] = pt1;
 			//punktyy[i][j] = pt1.y;
 			//cout << pt1.x << "\t"<< pt1.y << endl;
@@ -335,7 +335,7 @@ Mat perspective(Mat plansza) {
 		}
 	}
 
-	imshow("out", undistorted);
+	//imshow("out", undistorted);
 	for (i = 0; i < 9; i++)
 	{
 		for (j = 0; j < 13; j++)
@@ -346,7 +346,7 @@ Mat perspective(Mat plansza) {
 	}
 
 
-	imwrite("dupa.jpg", undistorted);
+	
 
 
 	//waitKey(0);
