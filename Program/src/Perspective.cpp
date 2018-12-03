@@ -331,7 +331,7 @@ Mat perspective(Mat plansza) {
 			punktyx[i][j] = pt1;
 			//punktyy[i][j] = pt1.y;
 			//cout << pt1.x << "\t"<< pt1.y << endl;
-			//circle(undistorted, pt1, 1, Scalar(0, 255, 255), 10, 8, 0);
+			circle(undistorted, pt1, 1, Scalar(255, 0, 0), 5, 8, 0);
 		}
 	}
 
