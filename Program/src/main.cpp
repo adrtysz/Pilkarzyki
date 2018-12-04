@@ -19,11 +19,25 @@ Mat wyjscie;
 Mat ruch;
 Mat wyjscie2;
 
+int x = 160; //punkt pocz¹tkowy
+int y = 240;
+
+int x1 = 0; //zmienne dla kolejnych punktów
+int y1 = 0;
+
+int xRoi = 110;
+int yRoi = 190;  //punkty dla ROI
+
+int xRoi1 = 0; // zmienne dla kolejnych punktow ROI
+int yRoi1 = 0;
+
 int DetectLines(Mat src, const char* sourceName, const char* destName) {
 
 	Mat dst, cdst;
 	Mat zapisz, pers;
 	int direction;
+	
+	
 	zapisz = imread("ruch0.jpg", 0);
 	pers = perspective(zapisz);
 
@@ -36,14 +50,7 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 
 	HoughLinesP(dst, lines, 1, CV_PI / 180, 20, 10, 5);
 
-	int x = 160; //punkt pocz¹tkowy
-	int y = 240; 
 
-	int x1 = 0; //zmienne dla kolejnych punktów
-	int y1 = 0;
-
-	int xRoi;
-	int yRoi; //punkty dla ROI
 
 	for (size_t i = 0; i < 1; i++) {
 		Vec4i l = lines[i];
@@ -66,10 +73,16 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 			if ((roznicay1 > 20) && (roznicay1 < 50)) {
 				y1 = y - roznicay1;
 				x1 = x + roznicax1;
+
+				xRoi1 = xRoi + roznicax1;
+				yRoi1 = yRoi - roznicay1;
 			}
 			else if ((roznicay2 > 20) && (roznicay2 < 50)) {
 				y1 = y - roznicay2;
 				x1 = x + roznicax2;
+
+				xRoi1 = xRoi + roznicax2;
+				yRoi1 = yRoi - roznicay2;
 			}
 
 			cout << "X : " << x1 << " Y : " << y1 << endl;
@@ -99,10 +112,17 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 			if ((roznicay1 > -50) && (roznicay1 < -20)) {
 				y1 = y + abs(roznicay1);
 				x1 = x + abs(roznicax1);
+
+
+				xRoi1 = xRoi + abs(roznicax1);
+				yRoi1 = yRoi +abs(roznicay1);
 			}
 			else if ((roznicay2 > -50) && (roznicay2 < -20)) {
 				y1 = y + abs(roznicay2);
 				x1 = x + abs(roznicax2);
+
+				xRoi1 = xRoi + abs(roznicax2);
+				yRoi1 = yRoi + abs(roznicay2);
 			}
 			cout << "X : " << x1 << " Y : " << y1 << endl;
 			cout << "Kierunek >> SOUTH << ";
@@ -133,11 +153,18 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 				x1 = x + abs(roznicax1);
 				y1 = y + abs(roznicay1);
 
+
+				xRoi1 = xRoi + abs(roznicax1);
+				yRoi1 = yRoi + abs(roznicay1);
+
 			}
 
 			else if ((roznicax2 < -20) && (roznicax2 > -50)) {
 				x1 = x + abs(roznicax2);
 				y1 = y + abs(roznicay2);
+
+				xRoi1 = xRoi + abs(roznicax2);
+				yRoi1 = yRoi + abs(roznicay2);
 			}
 
 			cout << "X : " << x1 << " Y : " << y1 << endl;
@@ -168,11 +195,17 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 				x1 = x - abs(roznicax1);
 				y1 = y + abs(roznicay1);
 
+				xRoi1 = xRoi - abs(roznicax1);
+				yRoi1 = yRoi + abs(roznicay1);
+
 			}
 
 			else if ((roznicax2 < 50) && (roznicax2 > 20)) {
 				x1 = x - abs(roznicax2);
 				y1 = y + abs(roznicay2);
+
+				xRoi1 = xRoi - abs(roznicax2);
+				yRoi1 = yRoi + abs(roznicay2);
 			}
 
 			cout << "X : " << x1 << " Y : " << y1 << endl;
@@ -203,11 +236,19 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 				y1 = y - abs(roznicay1);
 				x1 = x + abs(roznicax1);
 
+				xRoi1 = xRoi + abs(roznicax1);
+				yRoi1 = yRoi - abs(roznicay1);
+
 			}
 			else if ((roznicay2 > 20) && (roznicay2 < 50) && (roznicax2 < -20) && (roznicax2 > -50)) {
 
 				y1 = y - abs(roznicay2);
 				x1 = x + abs(roznicax2);
+
+				xRoi1 = xRoi + abs(roznicax2);
+				yRoi1 = yRoi - abs(roznicay2);
+
+
 			}
 
 
@@ -238,11 +279,17 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 				y1 = y - abs(roznicay1);
 				x1 = x - abs(roznicax1);
 
+				xRoi1 = xRoi - abs(roznicax1);
+				yRoi1 = yRoi - abs(roznicay1);
+
 			}
 			else if ((roznicay2 > 20) && (roznicay2 < 50) && (roznicax2 < 50) && (roznicax2 > 20)) {
 
 				y1 = y - abs(roznicay2);
 				x1 = x - abs(roznicax2);
+
+				xRoi1 = xRoi - abs(roznicax2);
+				yRoi1 = yRoi - abs(roznicay2);
 			}
 
 
@@ -276,12 +323,20 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 					y1 = y + abs(roznicay1);
 					x1 = x - abs(roznicax1);
 
+
+					xRoi1 = xRoi - abs(roznicax1);
+					yRoi1 = yRoi + abs(roznicay1);
+
 				}
 
 			else if ((roznicay2 > -50) && (roznicay2 < -20) && (roznicax2 < 50) && (roznicax2 > 20)) {
 
 				y1 = y + abs(roznicay2);
 				x1 = x - abs(roznicax2);
+
+
+				xRoi1 = xRoi - abs(roznicax2);
+				yRoi1 = yRoi + abs(roznicay2);
 
 			}
 
@@ -318,12 +373,18 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 						y1 = y + abs(roznicay1);
 						x1 = x + abs(roznicax1);
 
+						xRoi1 = xRoi + abs(roznicax1);
+						yRoi1 = yRoi + abs(roznicay1);
+
 					}
 
 				else if ((roznicay2 > -50) && (roznicay2 < -20) && (roznicax2 < -20) && (roznicax2 > -50)) {
 
 					y1 = y + abs(roznicay2);
 					x1 = x + abs(roznicax2);
+
+					xRoi1 = xRoi + abs(roznicax2);
+					yRoi1 = yRoi + abs(roznicay2);
 
 				}
 			
@@ -355,10 +416,11 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 		x1 = 0;
 		y1 = 0;
 
+		xRoi = xRoi1;
+		yRoi = yRoi1;
 
-		
-
-
+		xRoi1 = 0;
+		yRoi1 = 0;
 
 
 	}
@@ -378,11 +440,6 @@ int main(int argc, char** argv) {
 
 	ruch = imread("pdwsch.jpg", 0);
 	Mat wyjscie = perspective(ruch);
-
-
-	Mat ruch0 = imread("ruch0.jpg",0);
-	wyjscie2 = perspective(ruch0);
-
 
 
 	Mat roi = wyjscie(Rect(110, 190, 100, 100));
