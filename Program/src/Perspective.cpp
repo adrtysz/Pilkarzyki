@@ -100,7 +100,7 @@ Mat perspective(Mat plansza) {
 
 	Mat color;
 
-	cv::Size s = Size(80, 120);
+	cv::Size s = Size(321, 481);
 
 	//plansza = imread("6.jpg", 0); //load image in grayscale mode
 
