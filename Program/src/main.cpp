@@ -23,13 +23,15 @@ Mat wyjscie2;
 
 int DetectLines(Mat src, const char* sourceName, const char* destName) {
 
+
 	Mat dst, cdst;
 	int direction;
+		
+	Point punkt = Point(160, 240);
 
+	Point punkt_zm;
 
-	Mat pers = imread("plansza.jpg", 0);
-
-
+	Mat pers = imread("plansza.jpg", 1);
 
 
 	int x = 160; //punkt początkowy
@@ -38,8 +40,8 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 	int x1 = 0; //zmienne dla kolejnych punktów
 	int y1 = 0;
 
-	int xRoi = 110;
-	int yRoi = 190;  //punkty dla ROI
+	int xRoi = 120;
+	int yRoi = 200;  //punkty dla ROI
 
 	int xRoi1 = 0; // zmienne dla kolejnych punktow ROI
 	int yRoi1 = 0;
@@ -57,14 +59,14 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 	for (size_t i = 0; i < 1; i++) {
 
 		Vec4i l = lines[i];
-		line(pers, Point(l[0] + xRoi, l[1] + yRoi), Point(l[2] + xRoi, l[3] + yRoi), Scalar(0, 0, 255), 3, 2);
+		//line(pers, Point(l[0] + xRoi, l[1] + yRoi), Point(l[2] + xRoi, l[3] + yRoi), Scalar(0, 0, 255), 3, 2);
 
 		//  x1           y1               x2              y2
 
 
 
-		cout << "Roznica x2 : " << x - (l[2] + 110) << " \t Roznica x1 : " << x - (l[0] + 110) << endl;
-		cout << "Roznica y2 : " << y - (l[3] + 190) << " \t Roznica y1 : " << y - (l[1] + 190) << endl;
+		cout << "Roznica x2 : " << x - (l[2] + 120) << " \t Roznica x1 : " << x - (l[0] + 120) << endl;
+		cout << "Roznica y2 : " << y - (l[3] + 200) << " \t Roznica y1 : " << y - (l[1] + 200) << endl;
 
 		int roznicax1 = x - (l[0] + xRoi);
 		int roznicax2 = x - (l[2] + xRoi);
@@ -80,6 +82,12 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 
 				xRoi1 = xRoi + roznicax1;
 				yRoi1 = yRoi - roznicay1;
+
+				
+
+
+
+
 			}
 			else if ((roznicay2 > 20) && (roznicay2 < 50)) {
 				y1 = y - roznicay2;
@@ -88,11 +96,14 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 				xRoi1 = xRoi + roznicax2;
 				yRoi1 = yRoi - roznicay2;
 			}
-
+			
 			cout << "X : " << x1 << " Y : " << y1 << endl;
 			cout << "Kierunek >> NORTH << ";
 			cout << "xRoi " << xRoi << " \t yRoi " << yRoi << endl;
 			cout << "xRoi1 " << xRoi1 << " \t yRoi1 " << yRoi1 << endl;
+
+			line(pers, punkt, Point(punkt.x, punkt.y-40), Scalar(0, 0, 255), 3, 2);
+			punkt = Point(punkt.x, punkt.y - 40);
 
 			direction = 4;
 
@@ -141,6 +152,10 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 			cout << "xRoi1 " << xRoi1 << " \t yRoi1 " << yRoi1 << endl;
 
 
+			line(pers, punkt, Point(punkt.x, punkt.y + 40), Scalar(0, 0, 255), 3, 2);
+			punkt = Point(punkt.x, punkt.y + 40);
+
+
 			if ((x1 > 150) && (x1 < 170) && (y1 > 30) && (y1 < 50)) {
 				cout << "WYGRAŁ GRACZ PIERWSZY" << endl;
 				direction = 8;
@@ -185,6 +200,9 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 			cout << "xRoi " << xRoi << " \t yRoi " << yRoi << endl;
 			cout << "xRoi1 " << xRoi1 << " \t yRoi1 " << yRoi1 << endl;
 
+			line(pers, punkt, Point(punkt.x+40, punkt.y), Scalar(0, 0, 255), 3, 2);
+			punkt = Point(punkt.x+40, punkt.y);
+
 			if ((x1 > 150) && (x1 < 170) && (y1 > 30) && (y1 < 50)) {
 				cout << "WYGRAŁ GRACZ PIERWSZY" << endl;
 				direction = 8;
@@ -228,6 +246,10 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 			cout << "xRoi " << xRoi << " \t yRoi " << yRoi << endl;
 			cout << "xRoi1 " << xRoi1 << " \t yRoi1 " << yRoi1 << endl;
 
+
+			line(pers, punkt, Point(punkt.x - 40, punkt.y), Scalar(0, 0, 255), 3, 2);
+			punkt = Point(punkt.x - 40, punkt.y);
+
 			if ((x1 > 150) && (x1 < 170) && (y1 > 30) && (y1 < 50)) {
 				cout << "WYGRAŁ GRACZ PIERWSZY" << endl;
 				direction = 8;
@@ -267,6 +289,8 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 
 			}
 
+			line(pers, punkt, Point(punkt.x + 40, punkt.y-40), Scalar(0, 0, 255), 3, 2);
+			punkt = Point(punkt.x + 40, punkt.y-40);
 
 			cout << "X : " << x1 << " Y : " << y1 << endl;
 			cout << "Kierunek >> NORTH - EAST << ";
@@ -318,6 +342,9 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 			cout << "xRoi " << xRoi << " \t yRoi " << yRoi << endl;
 			cout << "xRoi1 " << xRoi1 << " \t yRoi1 " << yRoi1 << endl;
 
+			line(pers, punkt, Point(punkt.x - 40, punkt.y - 40), Scalar(0, 0, 255), 3, 2);
+			punkt = Point(punkt.x - 40, punkt.y - 40);
+
 
 			if ((x1 > 150) && (x1 < 170) && (y1 > 30) && (y1 < 50)) {
 				cout << "WYGRAŁ GRACZ PIERWSZY" << endl;
@@ -367,6 +394,8 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 			cout << "xRoi " << xRoi << " \t yRoi " << yRoi << endl;
 			cout << "xRoi1 " << xRoi1 << " \t yRoi1 " << yRoi1 << endl;
 
+			line(pers, punkt, Point(punkt.x - 40, punkt.y + 40), Scalar(0, 0, 255), 3, 2);
+			punkt = Point(punkt.x - 40, punkt.y + 40);
 
 			if ((x1 > 150) && (x1 < 170) && (y1 > 30) && (y1 < 50)) {
 				cout << "WYGRAŁ GRACZ PIERWSZY" << endl;
@@ -415,6 +444,9 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 			direction = 1;
 			cout << "xRoi " << xRoi << " \t yRoi " << yRoi << endl;
 			cout << "xRoi1 " << xRoi1 << " \t yRoi1 " << yRoi1 << endl;
+
+			line(pers, punkt, Point(punkt.x + 40, punkt.y = 40), Scalar(0, 0, 255), 3, 2);
+			punkt = Point(punkt.x + 40, punkt.y + 40);
 
 			if ((x1 > 150) && (x1 < 170) && (y1 > 30) && (y1 < 50)) {
 				cout << "WYGRAŁ GRACZ PIERWSZY" << endl;
