@@ -331,23 +331,11 @@ Mat perspective(Mat plansza) {
 			punktyx[i][j] = pt1;
 			//punktyy[i][j] = pt1.y;
 			//cout << pt1.x << "\t"<< pt1.y << endl;
-			circle(undistorted, pt1, 1, Scalar(255, 0, 0), 5, 8, 0);
+			//circle(undistorted, pt1, 1, Scalar(255, 0, 0), 5, 8, 0);
 		}
 	}
 
 	//imshow("out", undistorted);
-	for (i = 0; i < 9; i++)
-	{
-		for (j = 0; j < 13; j++)
-		{
-			cout << punktyx[i][j].x <<"\t"<< punktyx[i][j].y  << endl;
-			
-		}
-	}
-
-
-	
-
 
 	//waitKey(0);
 
