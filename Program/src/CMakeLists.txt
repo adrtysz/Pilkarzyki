@@ -10,12 +10,15 @@ include_directories(
 
 add_executable(Projekt
 	main.cpp
-	Contours.cpp
-	Contours.h
-	CameraStart.cpp
-	CameraStart.h
 	Perspective.cpp
 	Perspective.h
+	Winner.cpp
+	Winner.h
+	GetRoi.cpp
+	GetRoi.h
+	DetectLine.cpp
+	DetectLine.h
+
 )
 
 target_link_libraries(Projekt

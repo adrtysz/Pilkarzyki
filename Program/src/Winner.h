@@ -6,4 +6,6 @@
 
 using namespace cv;
 
-cv::Mat loadAndCrop(Mat);
+
+bool wygranaGraczaPierwszego(Point punkt);
+bool wygranaGraczaDrugiego(Point punkt);

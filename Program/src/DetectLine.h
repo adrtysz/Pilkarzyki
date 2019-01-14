@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 using namespace cv;
+using namespace std;
 
+int DetectLines(Mat src, const char* sourceName, const char* destName);
 
-cv::Mat camera();

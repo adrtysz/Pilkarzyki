@@ -6,6 +6,4 @@
 
 using namespace cv;
 
-int load(Mat);
-void thresh_callback(int, void*);
-
+cv::Mat getPaddedROI(const Mat &input, int top_left_x, int top_left_y, int width, int height, Scalar paddingColor);

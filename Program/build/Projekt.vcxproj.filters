@@ -4,24 +4,30 @@
     <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\Contours.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\CameraStart.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\Perspective.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\Winner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\GetRoi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\DetectLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\Contours.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\CameraStart.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\Perspective.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\Winner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\GetRoi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Adżi\Documents\STUDIA\SEMESTR 5\PROJEKT KOMPETENCYJNY\Projekt\Program\src\DetectLine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
