@@ -8,4 +8,7 @@ using namespace cv;
 using namespace std;
 
 int DetectLines(Mat src, const char* sourceName, const char* destName);
+void PrintDirection(int direction);
+void PrintCurrentPosition(Point punkt);
+Scalar SetColor(int moveCounter);
 

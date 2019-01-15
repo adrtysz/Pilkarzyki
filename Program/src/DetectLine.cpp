@@ -10,14 +10,64 @@ using namespace cv;
 using namespace std;
 
 int roiCenter = 60;
-int xRoi = 100;
+int xRoi = 100; // pierwsze ROI
 int yRoi = 180;
 
 int x = 160; //punkt pocz¹tkowy
 int y = 240;
 
+int step = 40;
+int xRange = 10;
+int maxYRange = step + xRange;
+int minYRange = step - xRange;
+int direction;
+int moveCounter=0;
 
 Point punkt = Point(160, 240);
+
+Scalar SetColor(int moveCounter) {
+
+	if (moveCounter % 2 == 0) {
+		return Scalar(0, 0, 255); //czerwony
+	}
+	else {
+		return Scalar(125, 223, 91); //zielony
+	}
+}
+
+void PrintDirection(int direction) {
+	switch (direction){
+	case 0:
+		cout << ">>KIERUNEK RUCHU - PÓ£NOC<<" << endl;
+		break;
+	case 1:
+		cout << ">>KIERUNEK RUCHU - PO£UDNIE<<" <<endl;
+		break;
+	case 2:
+		cout << ">>KIERUNEK RUCHU - WSCHÓD<<" << endl;
+		break;
+	case 3:
+		cout << ">>KIERUNEK RUCHU - ZACHÓD<<" << endl;
+		break;
+	case 4:
+		cout << ">>KIERUNEK RUCHU - PÓ£NOCNY-WSCHÓD<<" << endl;
+		break;
+	case 5:
+		cout << ">>KIERUNEK RUCHU - PÓ£NOCNY-ZACHÓD<<" << endl;
+		break;
+	case 6:
+		cout << ">>KIERUNEK RUCHU - PO£ÓDNIOWY-ZACHÓD<<" << endl;
+		break;
+	case 7: 
+		cout << ">>KIERUNEK RUCHU - PO£ÓDNIOWY-WSCHÓD<<" << endl;
+		break;
+	}
+}
+
+void PrintCurrentPosition(Point punkt){
+	cout << "WSPÓ£RZÊDNE OBECNEJ POZYCJI : \t X: " << punkt.x << " \t Y:" << punkt.y << endl;
+	}
+
 
 int DetectLines(Mat src, const char* sourceName, const char* destName) {
 
@@ -43,142 +93,157 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 		int roznicay2 = roiCenter - (l[3]);
 
 
-		if ((((roznicay1 > 30) && (roznicay1 < 50))) && ((roznicax1 < 10) && (roznicax1 > -10)) || (((roznicay2 > 30) && (roznicay2 < 50))) && ((roznicax2 < 10) && (roznicax2 > -10))) {
-			line(pers, Point(punkt.x, punkt.y), Point(punkt.x, punkt.y - 40), Scalar(0, 0, 255), 3, 2);
+		if ((((roznicay1 > minYRange) && (roznicay1 < maxYRange))) && ((roznicax1 < xRange) && (roznicax1 > -xRange)) || (((roznicay2 > minYRange) && (roznicay2 < maxYRange))) && ((roznicax2 < xRange) && (roznicax2 > -xRange))) {
+			
+				line(pers, Point(punkt.x, punkt.y), Point(punkt.x, punkt.y - step), SetColor(moveCounter), 3, 2); //czerwony
+		
+			moveCounter++;
 
-			cout << "Kierunek >> NORTH << ";
+			direction = 0;
+			PrintDirection(direction);
 			xRoi = xRoi;
-			yRoi = yRoi - 40;
-			cout << "NOWY PUNKT POCZATKOWY : " << endl;
-			punkt = Point(punkt.x, punkt.y - 40);
-			cout << "X :" << punkt.x << "\t Y : " << punkt.y << endl << endl;
+			yRoi = yRoi - step;
+			punkt = Point(punkt.x, punkt.y - step);
+			PrintCurrentPosition(punkt);
 		
 			x = punkt.x;
 			y = punkt.y;
 		}
 
-		else if ((((roznicay1 > -50) && (roznicay1 < -30))) && ((roznicax1 < 10) && (roznicax1 > -10)) || (((roznicay2 > -50) && (roznicay2 < -30))) && ((roznicax2 < 10) && (roznicax2 > -10))) {
+		else if ((((roznicay1 > -maxYRange) && (roznicay1 < -minYRange))) && ((roznicax1 < xRange) && (roznicax1 > -xRange)) || (((roznicay2 > -maxYRange) && (roznicay2 < -minYRange))) && ((roznicax2 < xRange) && (roznicax2 > -xRange))) {
 
 
-			line(pers, punkt, Point(punkt.x, punkt.y + 40), Scalar(0, 0, 255), 3, 2);
+			line(pers, Point(punkt.x, punkt.y), Point(punkt.x, punkt.y + step), SetColor(moveCounter), 3, 2); //zielony
+			
+			moveCounter++;
 
-			cout << "Kierunek >> SOUTH << ";
+			direction = 1;
+			PrintDirection(direction);
 			xRoi = xRoi;
-			yRoi = yRoi + 40;
-			cout << "NOWY PUNKT POCZATKOWY : " << endl;
-			punkt = Point(punkt.x, punkt.y + 40);
-			cout << "X :" << punkt.x << "\t Y : " << punkt.y << endl << endl;
+			yRoi = yRoi + step;
+			punkt = Point(punkt.x, punkt.y + step);
+			PrintCurrentPosition(punkt);
 			x = punkt.x;
 			y = punkt.y;
 
 		}
 
-		else if ((((roznicay1 > -10) && (roznicay1 < 10))) && ((roznicax1 < -30) && (roznicax1 > -50)) || (((roznicay2 > -10) && (roznicay2 < 10))) && ((roznicax2 < -30) && (roznicax2 > -50))) {
+		else if ((((roznicay1 > -xRange) && (roznicay1 < xRange))) && ((roznicax1 < -minYRange) && (roznicax1 > -maxYRange)) || (((roznicay2 > -xRange) && (roznicay2 < xRange))) && ((roznicax2 < -minYRange) && (roznicax2 > -maxYRange))) {
 
-			line(pers, punkt, Point(punkt.x + 40, punkt.y), Scalar(0, 0, 255), 3, 2);
+				line(pers, Point(punkt.x, punkt.y), Point(punkt.x+step, punkt.y), SetColor(moveCounter), 3, 2); //czerwony
+			
 
-			cout << "Kierunek >> EAST<< ";
-			xRoi = xRoi + 40;
+			moveCounter++;
+			direction = 2;
+			PrintDirection(direction);
+			xRoi = xRoi + step;
 			yRoi = yRoi;
-			cout << "NOWY PUNKT POCZATKOWY : " << endl;
-			punkt = Point(punkt.x + 40, punkt.y);
-			cout << "X :" << punkt.x << "\t Y : " << punkt.y << endl<<endl;
+			punkt = Point(punkt.x + step, punkt.y);
+			PrintCurrentPosition(punkt); 
 	
 
 			x = punkt.x;
 			y = punkt.y;
 		}
 
+		else if ((((roznicay1 > -xRange) && (roznicay1 < xRange))) && ((roznicax1 < maxYRange) && (roznicax1 > minYRange)) || (((roznicay2 > -xRange) && (roznicay2 < xRange))) && ((roznicax2 < maxYRange) && (roznicax2 > minYRange))) {
 
 
+				line(pers, Point(punkt.x, punkt.y), Point(punkt.x-step, punkt.y), SetColor(moveCounter), 3, 2); //zielony
+			
 
+			moveCounter++;
 
-		else if ((((roznicay1 > -10) && (roznicay1 < 10))) && ((roznicax1 < 50) && (roznicax1 > 30)) || (((roznicay2 > -10) && (roznicay2 < 10))) && ((roznicax2 < 50) && (roznicax2 > 30))) {
-
-
-			line(pers, punkt, Point(punkt.x - 40, punkt.y), Scalar(0, 0, 255), 3, 2);
-
-			cout << "Kierunek >> WEST << ";
-			xRoi = xRoi - 40;
+			direction = 3;
+			PrintDirection(direction);
+			xRoi = xRoi - step;
 			yRoi = yRoi;
-			cout << "NOWY PUNKT POCZATKOWY : " << endl;
-			punkt = Point(punkt.x - 40, punkt.y);
-			cout << "X :" << punkt.x << "\t Y : " << punkt.y << endl<<endl;
+			punkt = Point(punkt.x - step, punkt.y);
+			PrintCurrentPosition(punkt);
+
+			x = punkt.x;
+			y = punkt.y;
+
+		}
+
+
+		else if ((((roznicay1 > minYRange) && (roznicay1 < maxYRange))) && ((roznicax1 < -minYRange) && (roznicax1 > -maxYRange)) || (((roznicay2 > minYRange) && (roznicay2 < maxYRange))) && ((roznicax2 < -minYRange) && (roznicax2 > -maxYRange))) {
+			
+				line(pers, Point(punkt.x, punkt.y), Point(punkt.x+step, punkt.y - step), SetColor(moveCounter), 3, 2); //zielony
+			
+
+			moveCounter++;
+
+			direction = 4;
+			PrintDirection(direction);
+			xRoi = xRoi + step;
+			yRoi = yRoi - step;
+			punkt = Point(punkt.x + step, punkt.y - step);
+			PrintCurrentPosition(punkt);
+
+			x = punkt.x;
+			y = punkt.y;
+
+		}
+
+
+
+
+		else if ((((roznicay1 > minYRange) && (roznicay1 < maxYRange))) && ((roznicax1 < maxYRange) && (roznicax1 > minYRange)) || (((roznicay2 > minYRange) && (roznicay2 < maxYRange))) && ((roznicax2 < maxYRange) && (roznicax2 > minYRange))) {
+
+			line(pers, Point(punkt.x, punkt.y), Point(punkt.x-step, punkt.y - step), SetColor(moveCounter), 3, 2); //zielony
+			
+
+			moveCounter++;
+
+			direction = 5;
+			PrintDirection(direction);
+			xRoi = xRoi - step;
+			yRoi = yRoi - step;
+			punkt = Point(punkt.x - step, punkt.y - step);
+			PrintCurrentPosition(punkt);
+
+
+			x = punkt.x;
+			y = punkt.y;
+
+		}
+
+		else if ((((roznicay1 > -maxYRange) && (roznicay1 < -minYRange))) && ((roznicax1 < maxYRange) && (roznicax1 > minYRange)) || (((roznicay2 > -maxYRange) && (roznicay2 < -minYRange))) && ((roznicax2 < maxYRange) && (roznicax2 > minYRange))) {
+
+
+				line(pers, Point(punkt.x, punkt.y), Point(punkt.x-step, punkt.y + step), SetColor(moveCounter), 3, 2); //zielony
+			
+
+			moveCounter++;
+
+			direction = 6;
+			PrintDirection(direction);
+			xRoi = xRoi - step;
+			yRoi = yRoi + step;
+			punkt = Point(punkt.x - step, punkt.y + step);
+			PrintCurrentPosition(punkt);
 	
 
-
-			x = punkt.x;
-			y = punkt.y;
-
-		}
-
-
-		else if ((((roznicay1 > 30) && (roznicay1 < 50))) && ((roznicax1 < -30) && (roznicax1 > -50)) || (((roznicay2 > 30) && (roznicay2 < 50))) && ((roznicax2 < -30) && (roznicax2 > -50))) {
-
-
-			line(pers, punkt, Point(punkt.x + 40, punkt.y - 40), Scalar(0, 0, 255), 3, 2);
-
-			cout << "Kierunek >> NORTH - EAST << ";
-			xRoi = xRoi + 40;
-			yRoi = yRoi - 40;
-			cout << "NOWY PUNKT POCZATKOWY : " << endl;
-			punkt = Point(punkt.x + 40, punkt.y - 40);
-			cout << "X :" << punkt.x << "\t Y : " << punkt.y << endl<<endl;
-
-			x = punkt.x;
-			y = punkt.y;
-
-		}
-
-
-
-
-		else if ((((roznicay1 > 30) && (roznicay1 < 50))) && ((roznicax1 < 50) && (roznicax1 > 30)) || (((roznicay2 > 30) && (roznicay2 < 50))) && ((roznicax2 < 50) && (roznicax2 > 30))) {
-
-
-			line(pers, punkt, Point(punkt.x - 40, punkt.y - 40), Scalar(0, 0, 255), 3, 2);
-
-			cout << "Kierunek >> NORTH - WEST << ";
-			xRoi = xRoi - 40;
-			yRoi = yRoi - 40;
-			cout << "NOWY PUNKT POCZATKOWY : " << endl;
-			punkt = Point(punkt.x - 40, punkt.y - 40);
-			cout << "X :" << punkt.x << "\t Y : " << punkt.y << endl<<endl;
-
-
-			x = punkt.x;
-			y = punkt.y;
-
-		}
-
-		else if ((((roznicay1 > -50) && (roznicay1 < -30))) && ((roznicax1 < 50) && (roznicax1 > 30)) || (((roznicay2 > -50) && (roznicay2 < -30))) && ((roznicax2 < 50) && (roznicax2 > 30))) {
-
-			line(pers, punkt, Point(punkt.x - 40, punkt.y + 40), Scalar(0, 0, 255), 3, 2);
-
-			cout << "Kierunek >> SOUTH - WEST << ";
-			xRoi = xRoi - 40;
-			yRoi = yRoi + 40;
-			cout << "NOWY PUNKT POCZATKOWY : " << endl;
-			punkt = Point(punkt.x - 40, punkt.y + 40);
-			cout << "X :" << punkt.x << "\t Y : " << punkt.y << endl<<endl;
-	
-
 			x = punkt.x;
 			y = punkt.y;
 
 
 		}
 
-		else if ((((roznicay1 > -50) && (roznicay1 < -30))) && ((roznicax1 < -30) && (roznicax1 > -50)) || (((roznicay2 > -50) && (roznicay2 < -30))) && ((roznicax2 < -30) && (roznicax2 > -50))) {
+		else if ((((roznicay1 > -maxYRange) && (roznicay1 < -minYRange))) && ((roznicax1 < -minYRange) && (roznicax1 > -maxYRange)) || (((roznicay2 > -maxYRange) && (roznicay2 < -minYRange))) && ((roznicax2 < -minYRange) && (roznicax2 > -maxYRange))) {
 
-			line(pers, punkt, Point(punkt.x + 40, punkt.y + 40), Scalar(0, 0, 255), 3, 2);
+				line(pers, Point(punkt.x, punkt.y), Point(punkt.x+step, punkt.y + step), SetColor(moveCounter), 3, 2); //zielony
+			
 
-			cout << "Kierunek >> SOUTH - EAST<< ";
-			xRoi = xRoi + 40;
-			yRoi = yRoi + 40;
-			cout << "NOWY PUNKT POCZATKOWY : " << endl;
-			punkt = Point(punkt.x + 40, punkt.y + 40);
-			cout << "X :" << punkt.x << "\t Y : " << punkt.y << endl<<endl;
+			moveCounter++;
+
+			direction = 7;
+			PrintDirection(direction);
+			xRoi = xRoi + step;
+			yRoi = yRoi + step;
+			punkt = Point(punkt.x + step, punkt.y + step);
+			PrintCurrentPosition(punkt);
 
 			x = punkt.x;
 			y = punkt.y;
