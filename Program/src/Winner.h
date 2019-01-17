@@ -9,3 +9,4 @@ using namespace cv;
 
 bool wygranaGraczaPierwszego(Point punkt);
 bool wygranaGraczaDrugiego(Point punkt);
+void PrintWinner(String name);

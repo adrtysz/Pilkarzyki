@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "GetRoi.h"
-#include "Winner.h"
 
 using namespace cv;
 using namespace std;
@@ -12,25 +11,83 @@ using namespace std;
 int roiCenter = 60;
 int xRoi = 100; // pierwsze ROI
 int yRoi = 180;
-
 int x = 160; //punkt pocz¹tkowy
 int y = 240;
-
 int step = 40;
 int xRange = 10;
 int maxYRange = step + xRange;
 int minYRange = step - xRange;
 int direction;
 int moveCounter=0;
-
 Point punkt = Point(160, 240);
 
-Scalar SetColor(int moveCounter) {
+bool North(int x1, int y1, int x2, int y2) {
+	if ((((y1 > minYRange) && (y1 < maxYRange))) && ((x1 < xRange) && (x1 > -xRange)) || (((y2 > minYRange) && (y2 < maxYRange))) && ((x2 < xRange) && (x2 > -xRange))) {
+		return true;
+	}else {
+		return false;
+	}
+}
 
+bool South(int x1, int y1, int x2, int y2) {
+	if ((((y1 > -maxYRange) && (y1 < -minYRange))) && ((x1 < xRange) && (x1 > -xRange)) || (((y2 > -maxYRange) && (y2 < -minYRange))) && ((x2 < xRange) && (x2 > -xRange))) {
+		return true;
+	}else {
+		return false;
+	}
+}
+
+bool East(int x1, int y1, int x2, int y2) {
+	if ((((y1 > -xRange) && (y1 < xRange))) && ((x1 < -minYRange) && (x1 > -maxYRange)) || (((y2 > -xRange) && (y2 < xRange))) && ((x2 < -minYRange) && (x2 > -maxYRange))) {
+		return true;
+	}else {
+		return false;
+	}
+}
+
+bool West(int x1, int y1, int x2, int y2) {
+	if ((((y1 > -xRange) && (y1 < xRange))) && ((x1 < maxYRange) && (x1 > minYRange)) || (((y2 > -xRange) && (y2 < xRange))) && ((x2 < maxYRange) && (x2 > minYRange))) {
+		return true;
+	}else {
+		return false;
+	}
+}
+
+bool NorthEast(int x1, int y1, int x2, int y2) {
+	if ((((y1 > minYRange) && (y1 < maxYRange))) && ((x1 < -minYRange) && (x1 > -maxYRange)) || (((y2 > minYRange) && (y2 < maxYRange))) && ((x2 < -minYRange) && (x2 > -maxYRange))) {
+		return true;
+	}else {
+		return false;
+	}
+}
+
+bool NorthWest(int x1, int y1, int x2, int y2) {
+	if ((((y1 > minYRange) && (y1 < maxYRange))) && ((x1 < maxYRange) && (x1 > minYRange)) || (((y2 > minYRange) && (y2 < maxYRange))) && ((x2 < maxYRange) && (x2 > minYRange))) {
+		return true;
+	}else {
+		return false;
+	}
+}
+
+bool SouthWest(int x1, int y1, int x2, int y2) {
+	if ((((y1 > -maxYRange) && (y1 < -minYRange))) && ((x1 < maxYRange) && (x1 > minYRange)) || (((y2 > -maxYRange) && (y2 < -minYRange))) && ((x2 < maxYRange) && (x2 > minYRange))) {
+		return true;
+	}else {
+		return false;
+	}
+}
+bool SouthEast(int x1, int y1, int x2, int y2) {
+	if ((((y1 > -maxYRange) && (y1 < -minYRange))) && ((x1 < -minYRange) && (x1 > -maxYRange)) || (((y2 > -maxYRange) && (y2 < -minYRange))) && ((x2 < -minYRange) && (x2 > -maxYRange))) {
+		return true;
+	}else {
+		return false;
+	}
+}
+
+Scalar SetColor(int moveCounter) {
 	if (moveCounter % 2 == 0) {
 		return Scalar(0, 0, 255); //czerwony
-	}
-	else {
+	}else {
 		return Scalar(125, 223, 91); //zielony
 	}
 }
@@ -38,28 +95,28 @@ Scalar SetColor(int moveCounter) {
 void PrintDirection(int direction) {
 	switch (direction){
 	case 0:
-		cout << ">>KIERUNEK RUCHU - PÓ£NOC<<" << endl;
+		cout << ">>KIERUNEK RUCHU - POLNOC<<" << endl;
 		break;
 	case 1:
-		cout << ">>KIERUNEK RUCHU - PO£UDNIE<<" <<endl;
+		cout << ">>KIERUNEK RUCHU - POLUDNIE<<" <<endl;
 		break;
 	case 2:
-		cout << ">>KIERUNEK RUCHU - WSCHÓD<<" << endl;
+		cout << ">>KIERUNEK RUCHU - WSCHOD<<" << endl;
 		break;
 	case 3:
-		cout << ">>KIERUNEK RUCHU - ZACHÓD<<" << endl;
+		cout << ">>KIERUNEK RUCHU - ZACHOD<<" << endl;
 		break;
 	case 4:
-		cout << ">>KIERUNEK RUCHU - PÓ£NOCNY-WSCHÓD<<" << endl;
+		cout << ">>KIERUNEK RUCHU - POLNOCNY-WSCHOD<<" << endl;
 		break;
 	case 5:
-		cout << ">>KIERUNEK RUCHU - PÓ£NOCNY-ZACHÓD<<" << endl;
+		cout << ">>KIERUNEK RUCHU - POLNOCNY-ZACHOD<<" << endl;
 		break;
 	case 6:
-		cout << ">>KIERUNEK RUCHU - PO£ÓDNIOWY-ZACHÓD<<" << endl;
+		cout << ">>KIERUNEK RUCHU - POLODNIOWY-ZACHOD<<" << endl;
 		break;
 	case 7: 
-		cout << ">>KIERUNEK RUCHU - PO£ÓDNIOWY-WSCHÓD<<" << endl;
+		cout << ">>KIERUNEK RUCHU - POLODNIOWY-WSCHOD<<" << endl;
 		break;
 	}
 }
@@ -68,8 +125,7 @@ void PrintCurrentPosition(Point punkt){
 	cout << "WSPÓ£RZÊDNE OBECNEJ POZYCJI : \t X: " << punkt.x << " \t Y:" << punkt.y << endl;
 	}
 
-
-int DetectLines(Mat src, const char* sourceName, const char* destName) {
+Point DetectLines(Mat src, const char* sourceName, const char* destName) {
 
 	Mat dst;
 	Mat pers = imread("plansza.jpg", 1);
@@ -81,7 +137,7 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 	imshow("canny", dst);
 	vector<Vec4i> lines;
 
-	HoughLinesP(dst, lines, 1, CV_PI / 180, 10, 10, 15);
+	HoughLinesP(dst, lines, 1, CV_PI / 180, 10, 5, 20);
 
 	for (size_t i = 0; i < 1; i++) {
 
@@ -93,30 +149,21 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 		int roznicay2 = roiCenter - (l[3]);
 
 
-		if ((((roznicay1 > minYRange) && (roznicay1 < maxYRange))) && ((roznicax1 < xRange) && (roznicax1 > -xRange)) || (((roznicay2 > minYRange) && (roznicay2 < maxYRange))) && ((roznicax2 < xRange) && (roznicax2 > -xRange))) {
-			
-				line(pers, Point(punkt.x, punkt.y), Point(punkt.x, punkt.y - step), SetColor(moveCounter), 3, 2); //czerwony
-		
+		if (North(roznicax1,roznicay1,roznicax2,roznicay2)) {	
+			line(pers, Point(punkt.x, punkt.y), Point(punkt.x, punkt.y - step), SetColor(moveCounter), 3, 2); //czerwony
 			moveCounter++;
-
 			direction = 0;
 			PrintDirection(direction);
 			xRoi = xRoi;
 			yRoi = yRoi - step;
 			punkt = Point(punkt.x, punkt.y - step);
 			PrintCurrentPosition(punkt);
-		
 			x = punkt.x;
 			y = punkt.y;
 		}
-
-		else if ((((roznicay1 > -maxYRange) && (roznicay1 < -minYRange))) && ((roznicax1 < xRange) && (roznicax1 > -xRange)) || (((roznicay2 > -maxYRange) && (roznicay2 < -minYRange))) && ((roznicax2 < xRange) && (roznicax2 > -xRange))) {
-
-
+		else if (South(roznicax1,roznicay1,roznicax2,roznicay2)) {
 			line(pers, Point(punkt.x, punkt.y), Point(punkt.x, punkt.y + step), SetColor(moveCounter), 3, 2); //zielony
-			
 			moveCounter++;
-
 			direction = 1;
 			PrintDirection(direction);
 			xRoi = xRoi;
@@ -125,14 +172,9 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 			PrintCurrentPosition(punkt);
 			x = punkt.x;
 			y = punkt.y;
-
 		}
-
-		else if ((((roznicay1 > -xRange) && (roznicay1 < xRange))) && ((roznicax1 < -minYRange) && (roznicax1 > -maxYRange)) || (((roznicay2 > -xRange) && (roznicay2 < xRange))) && ((roznicax2 < -minYRange) && (roznicax2 > -maxYRange))) {
-
-				line(pers, Point(punkt.x, punkt.y), Point(punkt.x+step, punkt.y), SetColor(moveCounter), 3, 2); //czerwony
-			
-
+		else if(East(roznicax1,roznicay1,roznicax2,roznicay2)) {
+			line(pers, Point(punkt.x, punkt.y), Point(punkt.x+step, punkt.y), SetColor(moveCounter), 3, 2); //czerwony
 			moveCounter++;
 			direction = 2;
 			PrintDirection(direction);
@@ -140,131 +182,72 @@ int DetectLines(Mat src, const char* sourceName, const char* destName) {
 			yRoi = yRoi;
 			punkt = Point(punkt.x + step, punkt.y);
 			PrintCurrentPosition(punkt); 
-	
-
 			x = punkt.x;
 			y = punkt.y;
 		}
-
-		else if ((((roznicay1 > -xRange) && (roznicay1 < xRange))) && ((roznicax1 < maxYRange) && (roznicax1 > minYRange)) || (((roznicay2 > -xRange) && (roznicay2 < xRange))) && ((roznicax2 < maxYRange) && (roznicax2 > minYRange))) {
-
-
-				line(pers, Point(punkt.x, punkt.y), Point(punkt.x-step, punkt.y), SetColor(moveCounter), 3, 2); //zielony
-			
-
+		else if (West(roznicax1,roznicay1,roznicax2,roznicay2)){
+			line(pers, Point(punkt.x, punkt.y), Point(punkt.x-step, punkt.y), SetColor(moveCounter), 3, 2); //zielony
 			moveCounter++;
-
 			direction = 3;
 			PrintDirection(direction);
 			xRoi = xRoi - step;
 			yRoi = yRoi;
 			punkt = Point(punkt.x - step, punkt.y);
 			PrintCurrentPosition(punkt);
-
 			x = punkt.x;
 			y = punkt.y;
-
 		}
-
-
-		else if ((((roznicay1 > minYRange) && (roznicay1 < maxYRange))) && ((roznicax1 < -minYRange) && (roznicax1 > -maxYRange)) || (((roznicay2 > minYRange) && (roznicay2 < maxYRange))) && ((roznicax2 < -minYRange) && (roznicax2 > -maxYRange))) {
-			
-				line(pers, Point(punkt.x, punkt.y), Point(punkt.x+step, punkt.y - step), SetColor(moveCounter), 3, 2); //zielony
-			
-
+		else if (NorthEast(roznicax1,roznicay1,roznicax2,roznicay2)) {
+			line(pers, Point(punkt.x, punkt.y), Point(punkt.x+step, punkt.y - step), SetColor(moveCounter), 3, 2);
 			moveCounter++;
-
 			direction = 4;
 			PrintDirection(direction);
 			xRoi = xRoi + step;
 			yRoi = yRoi - step;
 			punkt = Point(punkt.x + step, punkt.y - step);
 			PrintCurrentPosition(punkt);
-
 			x = punkt.x;
 			y = punkt.y;
-
 		}
-
-
-
-
-		else if ((((roznicay1 > minYRange) && (roznicay1 < maxYRange))) && ((roznicax1 < maxYRange) && (roznicax1 > minYRange)) || (((roznicay2 > minYRange) && (roznicay2 < maxYRange))) && ((roznicax2 < maxYRange) && (roznicax2 > minYRange))) {
-
+		else if (NorthWest(roznicax1,roznicay1,roznicax2,roznicay2)) {
 			line(pers, Point(punkt.x, punkt.y), Point(punkt.x-step, punkt.y - step), SetColor(moveCounter), 3, 2); //zielony
-			
-
 			moveCounter++;
-
 			direction = 5;
 			PrintDirection(direction);
 			xRoi = xRoi - step;
 			yRoi = yRoi - step;
 			punkt = Point(punkt.x - step, punkt.y - step);
 			PrintCurrentPosition(punkt);
-
-
 			x = punkt.x;
 			y = punkt.y;
-
 		}
-
-		else if ((((roznicay1 > -maxYRange) && (roznicay1 < -minYRange))) && ((roznicax1 < maxYRange) && (roznicax1 > minYRange)) || (((roznicay2 > -maxYRange) && (roznicay2 < -minYRange))) && ((roznicax2 < maxYRange) && (roznicax2 > minYRange))) {
-
-
-				line(pers, Point(punkt.x, punkt.y), Point(punkt.x-step, punkt.y + step), SetColor(moveCounter), 3, 2); //zielony
-			
-
+		else if (SouthWest(roznicax1,roznicay1,roznicax2,roznicay2)) {
+			line(pers, Point(punkt.x, punkt.y), Point(punkt.x-step, punkt.y + step), SetColor(moveCounter), 3, 2); //zielony
 			moveCounter++;
-
 			direction = 6;
 			PrintDirection(direction);
 			xRoi = xRoi - step;
 			yRoi = yRoi + step;
 			punkt = Point(punkt.x - step, punkt.y + step);
 			PrintCurrentPosition(punkt);
-	
-
 			x = punkt.x;
 			y = punkt.y;
-
-
 		}
-
-		else if ((((roznicay1 > -maxYRange) && (roznicay1 < -minYRange))) && ((roznicax1 < -minYRange) && (roznicax1 > -maxYRange)) || (((roznicay2 > -maxYRange) && (roznicay2 < -minYRange))) && ((roznicax2 < -minYRange) && (roznicax2 > -maxYRange))) {
-
-				line(pers, Point(punkt.x, punkt.y), Point(punkt.x+step, punkt.y + step), SetColor(moveCounter), 3, 2); //zielony
-			
-
+		else if (SouthEast(roznicax1,roznicay1,roznicax2,roznicay2)){
+			line(pers, Point(punkt.x, punkt.y), Point(punkt.x+step, punkt.y + step), SetColor(moveCounter), 3, 2); //zielony
 			moveCounter++;
-
 			direction = 7;
 			PrintDirection(direction);
 			xRoi = xRoi + step;
 			yRoi = yRoi + step;
 			punkt = Point(punkt.x + step, punkt.y + step);
 			PrintCurrentPosition(punkt);
-
 			x = punkt.x;
 			y = punkt.y;
-
 		}
-
-
 	}
-	if (wygranaGraczaPierwszego(punkt) == true) {
-
-		Mat zwyciestwo = imread("wg1.jpg", 1);
-		imshow("GRATULACJE", zwyciestwo);
-	}
-	if (wygranaGraczaDrugiego(punkt) == true) {
-
-		Mat zwyciestwo = imread("wg2.jpg", 1);
-		imshow("GRATULACJE", zwyciestwo);
-	}
-
 	imshow(destName, pers);
 	imwrite("plansza.jpg", pers);
 
-	return 0;
+	return punkt;
 }

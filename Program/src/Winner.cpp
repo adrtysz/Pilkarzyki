@@ -9,8 +9,12 @@ using namespace std;
 
 
 bool wygranaGraczaPierwszego(Point punkt) {
-	if (punkt.x == 160 && punkt.y == 440) return true;
+	if (punkt.x == 160 && punkt.y == 40) return true;
 }
 bool wygranaGraczaDrugiego(Point punkt) {
-	if (punkt.x == 160 && punkt.y == 40) return true;
+	if (punkt.x == 160 && punkt.y == 440) return true;
+}
+void PrintWinner(String name) {
+	cout << " KONIEC GRY " << endl;
+	cout << " ZWYCIEZCA TO : " << name << endl;
 }
